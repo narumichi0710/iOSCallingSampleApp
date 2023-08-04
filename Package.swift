@@ -5,22 +5,26 @@ import PackageDescription
 
 let package = Package(
     name: "iOSCallingSampleApp",
-    platforms: [.iOS(.v15)],
+    platforms: [.iOS(.v15), .macOS(.v11)],
     products: [
         .library(
-            name: "iOSCallingSampleApp",
-            targets: ["iOSCallingSampleApp"]),
+            name: "AppFeature",
+            targets: ["AppFeature"]
+        ),
     ],
     dependencies: [
-        .package(url: "https://github.com/firebase/firebase-ios-sdk", exact:.init(10, 9, 0)),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", exact: .init(10, 13, 0)),
     ], targets: [
         .target(
-            name: "iOSCallingSampleApp"),
-        .testTarget(
-            name: "iOSCallingSampleAppTests",
+            name: "AppFeature",
             dependencies: [
-                "iOSCallingSampleApp",
+                .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
                 .product(name: "FirebaseMessaging", package: "firebase-ios-sdk"),
-            ]),
+            ]
+        ),
+        .testTarget(
+            name: "AppFeatureTests",
+            dependencies: ["AppFeature"]
+        ),
     ]
 )
