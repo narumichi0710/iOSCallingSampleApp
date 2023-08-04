@@ -11,11 +11,16 @@ let package = Package(
             name: "iOSCallingSampleApp",
             targets: ["iOSCallingSampleApp"]),
     ],
-    targets: [
+    dependencies: [
+        .package(url: "https://github.com/firebase/firebase-ios-sdk", exact:.init(10, 9, 0)),
+    ], targets: [
         .target(
             name: "iOSCallingSampleApp"),
         .testTarget(
             name: "iOSCallingSampleAppTests",
-            dependencies: ["iOSCallingSampleApp"]),
+            dependencies: [
+                "iOSCallingSampleApp",
+                .product(name: "FirebaseMessaging", package: "firebase-ios-sdk"),
+            ]),
     ]
 )
