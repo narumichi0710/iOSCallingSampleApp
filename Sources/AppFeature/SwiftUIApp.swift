@@ -1,30 +1,33 @@
 //
-//  AppApp.swift
-//  App
+//  SwiftUIApp.swift
+//  
 //
 //  Created by Narumichi Kubo on 2023/08/04.
 //
 
 import SwiftUI
+import FirebaseCore
 
-@main
-struct MainApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+public struct SwiftUIApp: App {
+    @UIApplicationDelegateAdaptor var appDelegate: AppDelegate
     
-    var body: some Scene {
+    public init() {}
+    
+    public var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
         }
     }
 }
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+public class AppDelegate: NSObject, UIApplicationDelegate {
 
-    func application(
+    public func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
         FirebaseApp.configure()
         return true
-  }
+    }
 }
+

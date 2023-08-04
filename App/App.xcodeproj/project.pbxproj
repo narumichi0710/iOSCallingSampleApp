@@ -7,17 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		38195B352A7CE42100EDA45B /* MainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195B342A7CE42100EDA45B /* MainApp.swift */; };
-		38195B372A7CE42100EDA45B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195B362A7CE42100EDA45B /* ContentView.swift */; };
+		38195B352A7CE42100EDA45B /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38195B342A7CE42100EDA45B /* main.swift */; };
 		38195B392A7CE42200EDA45B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38195B382A7CE42200EDA45B /* Assets.xcassets */; };
 		38195B3D2A7CE42200EDA45B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38195B3C2A7CE42200EDA45B /* Preview Assets.xcassets */; };
 		38195B452A7CF07A00EDA45B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 38195B442A7CF07A00EDA45B /* GoogleService-Info.plist */; };
+		3831A3F72A7CF7B000D6E894 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 3831A3F62A7CF7B000D6E894 /* AppFeature */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		38195B312A7CE42100EDA45B /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		38195B342A7CE42100EDA45B /* MainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainApp.swift; sourceTree = "<group>"; };
-		38195B362A7CE42100EDA45B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		38195B342A7CE42100EDA45B /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		38195B382A7CE42200EDA45B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38195B3A2A7CE42200EDA45B /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
 		38195B3C2A7CE42200EDA45B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -30,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3831A3F72A7CF7B000D6E894 /* AppFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +42,7 @@
 				38195B432A7CE44000EDA45B /* iOSCallingSampleApp */,
 				38195B332A7CE42100EDA45B /* App */,
 				38195B322A7CE42100EDA45B /* Products */,
+				3831A3F52A7CF7B000D6E894 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,8 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				38195B442A7CF07A00EDA45B /* GoogleService-Info.plist */,
-				38195B342A7CE42100EDA45B /* MainApp.swift */,
-				38195B362A7CE42100EDA45B /* ContentView.swift */,
+				38195B342A7CE42100EDA45B /* main.swift */,
 				38195B382A7CE42200EDA45B /* Assets.xcassets */,
 				38195B3A2A7CE42200EDA45B /* App.entitlements */,
 				38195B3B2A7CE42200EDA45B /* Preview Content */,
@@ -72,6 +72,13 @@
 				38195B3C2A7CE42200EDA45B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3831A3F52A7CF7B000D6E894 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -90,6 +97,9 @@
 			dependencies = (
 			);
 			name = App;
+			packageProductDependencies = (
+				3831A3F62A7CF7B000D6E894 /* AppFeature */,
+			);
 			productName = App;
 			productReference = 38195B312A7CE42100EDA45B /* App.app */;
 			productType = "com.apple.product-type.application";
@@ -145,8 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38195B372A7CE42100EDA45B /* ContentView.swift in Sources */,
-				38195B352A7CE42100EDA45B /* MainApp.swift in Sources */,
+				38195B352A7CE42100EDA45B /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +297,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.narumichikubo.callingsampleapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -326,7 +335,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.narumichikubo.callingsampleapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -360,6 +369,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3831A3F62A7CF7B000D6E894 /* AppFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppFeature;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 38195B292A7CE42100EDA45B /* Project object */;
 }
