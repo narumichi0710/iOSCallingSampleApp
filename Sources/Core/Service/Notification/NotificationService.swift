@@ -16,7 +16,6 @@ public protocol NotificationService {
 }
 
 public final class NotificationServiceImpl: NSObject, NotificationService {
-    private let deviceTokenSubject = CurrentValueSubject<String, Never>("")
     private let userNotificationCenter = UNUserNotificationCenter.current()
 
     public override init() {
@@ -35,11 +34,7 @@ public final class NotificationServiceImpl: NSObject, NotificationService {
         }
     }
 
-    public func registerDeviceToken(_ deviceToken: Data) {
-        let hex = deviceToken.map { String(format: "%02hhx", $0) }.joined()
-        debugPrint("token=\(hex)")
-        deviceTokenSubject.send(hex)
-    }
+    public func registerDeviceToken(_ deviceToken: Data) {}
 }
 
 @MainActor
