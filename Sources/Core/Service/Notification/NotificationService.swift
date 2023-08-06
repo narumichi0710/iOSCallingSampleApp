@@ -6,10 +6,69 @@
 //
 
 import Foundation
+import UserNotifications
+import Combine
 
 
+public protocol NotificationService {
+    func setup()
+    func registerDeviceToken(_ deviceToken: Data)
+}
 
-public class NotificationService: NSObject {
-    
-    public init() {}
+public final class NotificationServiceImpl: NSObject, NotificationService {
+    private let deviceTokenSubject = CurrentValueSubject<String, Never>("")
+    private let userNotificationCenter = UNUserNotificationCenter.current()
+
+    public override init() {
+        super.init()
+    }
+
+    public func setup() {
+        userNotificationCenter.delegate = self
+        requestNotificationAuthorization()
+    }
+
+    private func requestNotificationAuthorization() {
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        userNotificationCenter.requestAuthorization(options: authOptions) { _, _ in
+            debugPrint("UNUserNotification requestAuthorization completed")
+        }
+    }
+
+    public func registerDeviceToken(_ deviceToken: Data) {
+        let hex = deviceToken.map { String(format: "%02hhx", $0) }.joined()
+        debugPrint("token=\(hex)")
+        deviceTokenSubject.send(hex)
+    }
+}
+
+@MainActor
+extension NotificationServiceImpl: UNUserNotificationCenterDelegate {
+
+    public func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification
+    ) async -> UNNotificationPresentationOptions {
+        debugPrintNotificationInfo("willPresent", from: notification.request.content.userInfo)
+        return [.banner, .badge, .sound]
+    }
+
+    public func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse
+    ) async {
+        let userInfo = response.notification.request.content.userInfo
+        debugPrintNotificationInfo("didReceive", from: userInfo)
+        handleUserData(from: userInfo)
+    }
+
+    private func debugPrintNotificationInfo(_ prefix: String, from userInfo: [AnyHashable: Any]) {
+        debugPrint("\(prefix): \(userInfo)")
+    }
+
+    private func handleUserData(from userInfo: [AnyHashable: Any]) {
+        if let data = userInfo["data"] as? [String: Any] {
+            // TODO:
+        }
+    }
 }
