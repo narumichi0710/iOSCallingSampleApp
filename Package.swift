@@ -30,6 +30,7 @@ let package = Package(
         .target(
             name: "AppFeature",
             dependencies: [
+                "Service",
                 .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
                 .product(name: "FirebaseMessaging", package: "firebase-ios-sdk"),
             ]

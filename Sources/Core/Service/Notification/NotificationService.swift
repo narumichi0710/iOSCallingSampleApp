@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  NotificationService.swift
 //  
 //
 //  Created by Narumichi Kubo on 2023/08/06.
@@ -71,4 +71,9 @@ extension NotificationServiceImpl: UNUserNotificationCenterDelegate {
             // TODO:
         }
     }
+}
+
+public final class NotificationServiceStub: NotificationService {
+    public func setup() {}
+    public func registerDeviceToken(_ deviceToken: Data) {}
 }

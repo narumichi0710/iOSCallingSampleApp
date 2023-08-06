@@ -6,9 +6,15 @@
 //
 
 import SwiftUI
+import Service
 
 public struct RootView: View {
-    public init() {}
+    private let factory: ServiceFactory
+    
+    public init(factory: ServiceFactory) {
+        self.factory = factory
+    }
+
     public var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -22,6 +28,6 @@ public struct RootView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView()
+        RootView(factory: ServiceFactoryStub())
     }
 }

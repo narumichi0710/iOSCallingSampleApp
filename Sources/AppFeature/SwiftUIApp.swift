@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
+import Service
 
 public struct SwiftUIApp: App {
     @UIApplicationDelegateAdaptor var appDelegate: AppDelegate
@@ -15,7 +16,7 @@ public struct SwiftUIApp: App {
     
     public var body: some Scene {
         WindowGroup {
-            RootView()
+            RootView(factory: ServiceFactoryImpl())
         }
     }
 }
