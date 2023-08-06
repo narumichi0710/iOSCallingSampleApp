@@ -17,14 +17,16 @@ public protocol NotificationService {
 
 public final class NotificationServiceImpl: NSObject, NotificationService {
     private let userNotificationCenter = UNUserNotificationCenter.current()
+    private let callControllService: CallControlService
 
-    public override init() {
-        super.init()
+    public init(callControllService: CallControlService) {
+        self.callControllService = callControllService
     }
 
     public func setup() {
         userNotificationCenter.delegate = self
         requestNotificationAuthorization()
+        callControllService.setup()
     }
 
     private func requestNotificationAuthorization() {
@@ -63,12 +65,22 @@ extension NotificationServiceImpl: UNUserNotificationCenterDelegate {
 
     private func handleUserData(from userInfo: [AnyHashable: Any]) {
         if let data = userInfo["data"] as? [String: Any] {
-            // TODO:
+            // CallKitの着信を開始
+            callControllService.startIncomingCall(uuid: UUID(), handle: "callerID") { error in
+                if let error = error {
+                    print("Error starting incoming call: \(error)")
+                }
+            }
         }
     }
 }
 
 public final class NotificationServiceStub: NotificationService {
+    public let callControllService: CallControlService
     public func setup() {}
     public func registerDeviceToken(_ deviceToken: Data) {}
+
+    public init(callControllService: CallControlService) {
+        self.callControllService = callControllService
+    }
 }

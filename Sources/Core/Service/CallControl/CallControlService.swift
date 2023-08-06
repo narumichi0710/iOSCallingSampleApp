@@ -7,6 +7,7 @@
 
 import Foundation
 import CallKit
+import PushKit
 
 public protocol CallControlService {
     func setup()
@@ -35,8 +36,12 @@ public final class CallControlServiceImpl: NSObject, CallControlService {
         provider.setDelegate(self, queue: nil)
     }
 
-    public func setup() {}
-
+    public func setup() {
+        let voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
+        voipRegistry.delegate = self
+        voipRegistry.desiredPushTypes = [.voIP]
+    }
+    
     public func startIncomingCall(
         uuid: UUID,
         handle: String,
@@ -56,6 +61,44 @@ public final class CallControlServiceImpl: NSObject, CallControlService {
         let startCallAction = CXStartCallAction(call: uuid, handle: handle)
         let transaction = CXTransaction(action: startCallAction)
         callController.request(transaction, completion: completion)
+    }
+}
+
+
+extension CallControlServiceImpl: PKPushRegistryDelegate {
+
+    public func pushRegistry(
+        _ registry: PKPushRegistry,
+        didUpdate pushCredentials: PKPushCredentials,
+        for type: PKPushType
+    ) {
+        guard type == .voIP else {
+            debugPrint("PKPushType is not voIP: \(registry), \(pushCredentials)")
+            return
+        }
+        let deviceToken = (pushCredentials.token as NSData)
+        // TODO: pushCredentialsをサーバーに保存
+    }
+
+    public func pushRegistry(
+        _ registry: PKPushRegistry,
+        didReceiveIncomingPushWith payload: PKPushPayload,
+        for type: PKPushType,
+        completion: @escaping () -> Void
+    ) {
+        guard type == .voIP else {
+            debugPrint("PKPushType is not voIP: \(registry), \(payload)")
+            return
+        }
+        // 着信をリクエスト
+        startIncomingCall(
+            uuid: UUID(),
+            handle: "",
+            completion: { error in
+                debugPrint("Failed start incoming call: \(String(describing: error))")
+            }
+        )
+        completion()
     }
 }
 
