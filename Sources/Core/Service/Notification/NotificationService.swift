@@ -52,19 +52,15 @@ extension NotificationServiceImpl: UNUserNotificationCenterDelegate {
     ) async {
         let userInfo = response.notification.request.content.userInfo
         debugPrintNotificationInfo("didReceive", from: userInfo)
-        handleUserData(from: userInfo)
     }
 
     private func debugPrintNotificationInfo(_ prefix: String, from userInfo: [AnyHashable: Any]) {
         debugPrint("\(prefix): \(userInfo)")
     }
 
-    private func handleUserData(from userInfo: [AnyHashable: Any]) {
-        if let data = userInfo["data"] as? [String: Any] {}
-    }
 }
 
-public final class NotificationServiceStub: NotificationService {
+public class NotificationServiceStub: NotificationService {
     public func setup() {}
     public func registerDeviceToken(_ deviceToken: Data) {}
 }
