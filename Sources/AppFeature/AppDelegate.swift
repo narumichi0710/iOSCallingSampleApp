@@ -17,6 +17,7 @@ public class AppDelegate: NSObject, UIApplicationDelegate {
     
     let factory: ServiceFactory = ServiceFactoryImpl()
     private lazy var notificationService: NotificationService = factory.notificationService
+    private lazy var callControllService: CallControlService = factory.callControllService
     
     public func application(
         _ application: UIApplication,
@@ -26,7 +27,8 @@ public class AppDelegate: NSObject, UIApplicationDelegate {
 
         FirebaseApp.configure()
         notificationService.setup()
-
+        callControllService.setup()
+        
         application.registerForRemoteNotifications()
         return true
     }
