@@ -22,14 +22,12 @@ public final class CallControlServiceImpl: NSObject, CallControlService {
     public override init() {
         callController = CXCallController()
 
-        let configuration = CXProviderConfiguration()
-        configuration.includesCallsInRecents = false
-        configuration.maximumCallGroups = 1
-        configuration.maximumCallsPerCallGroup = 1
-        configuration.supportsVideo = true
-        configuration.supportedHandleTypes = [.phoneNumber]
+        let config = CXProviderConfiguration()
+        config.supportsVideo = true
+        config.supportedHandleTypes = [.phoneNumber]
+        config.maximumCallsPerCallGroup = 1
         
-        provider = CXProvider(configuration: configuration)
+        provider = CXProvider(configuration: config)
 
         super.init()
 
@@ -68,7 +66,7 @@ public final class CallControlServiceImpl: NSObject, CallControlService {
 
 
 extension CallControlServiceImpl: PKPushRegistryDelegate {
-
+    
     public func pushRegistry(
         _ registry: PKPushRegistry,
         didUpdate pushCredentials: PKPushCredentials,
@@ -83,7 +81,7 @@ extension CallControlServiceImpl: PKPushRegistryDelegate {
         let pkid = pushCredentials.token.map { String(format: "%02.2hhx", $0) }.joined()
         debugPrint("your device token: \(pkid)")
     }
-
+    
     public func pushRegistry(
         _ registry: PKPushRegistry,
         didInvalidatePushTokenFor type: PKPushType
@@ -98,7 +96,7 @@ extension CallControlServiceImpl: PKPushRegistryDelegate {
         completion: @escaping () -> Void
     ) {
         print("did receive incoming push with: \(registry), \(payload), \(type)")
-
+        
         guard type == .voIP else {
             debugPrint("PKPushType is not voIP")
             return

@@ -16,11 +16,26 @@ public struct RootView: View {
     }
 
     public var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        HStack(spacing: 16) {
+            Button("発信") {
+                factory
+                    .callControllService
+                    .startOutgoingCall(
+                        uuid: UUID(),
+                        handle: "Test",
+                        completion: { _ in}
+                    )
+            }
+            
+            Button("着信") {
+                factory
+                    .callControllService
+                    .startIncomingCall(
+                        uuid: UUID(),
+                        handle: "Test",
+                        completion: { _ in}
+                    )
+            }
         }
         .padding()
     }

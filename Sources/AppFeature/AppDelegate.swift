@@ -13,7 +13,7 @@ import PushKit
 import CallKit
 import UIKit
 
-public class AppDelegate: NSObject, UIApplicationDelegate {
+public class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate {
     
     let factory: ServiceFactory = ServiceFactoryImpl()
     private lazy var notificationService: NotificationService = factory.notificationService
@@ -28,7 +28,7 @@ public class AppDelegate: NSObject, UIApplicationDelegate {
         FirebaseApp.configure()
         notificationService.setup()
         callControllService.setup()
-        
+        Messaging.messaging().delegate = self
         application.registerForRemoteNotifications()
         return true
     }
@@ -61,6 +61,13 @@ public class AppDelegate: NSObject, UIApplicationDelegate {
     ) async -> UIBackgroundFetchResult {
         debugPrint("did Receive Remote Notification: \(userInfo)")
         return .newData
+    }
+    
+    public func messaging(
+        _ messaging: Messaging,
+        didReceiveRegistrationToken fcmToken: String?
+    ) {
+        debugPrint("fcm token: \(Messaging.messaging().fcmToken ?? "nil")")
     }
 }
 

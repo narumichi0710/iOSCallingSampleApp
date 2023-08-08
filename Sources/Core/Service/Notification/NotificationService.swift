@@ -42,7 +42,7 @@ extension NotificationServiceImpl: UNUserNotificationCenterDelegate {
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification
     ) async -> UNNotificationPresentationOptions {
-        debugPrintNotificationInfo("willPresent", from: notification.request.content.userInfo)
+        debugPrintNotificationInfo("willPresent", from: notification.request.content.userInfo, center)
         return [.banner, .badge, .sound]
     }
 
@@ -51,16 +51,15 @@ extension NotificationServiceImpl: UNUserNotificationCenterDelegate {
         didReceive response: UNNotificationResponse
     ) async {
         let userInfo = response.notification.request.content.userInfo
-        debugPrintNotificationInfo("didReceive", from: userInfo)
+        debugPrintNotificationInfo("did receive notification message", from: userInfo, center)
     }
 
-    private func debugPrintNotificationInfo(_ prefix: String, from userInfo: [AnyHashable: Any]) {
-        debugPrint("\(prefix): \(userInfo)")
+    private func debugPrintNotificationInfo(_ prefix: String, from userInfo: [AnyHashable: Any], _ center: UNUserNotificationCenter) {
+        debugPrint("\(prefix): \(userInfo) \(center)")
     }
-
 }
 
-public class NotificationServiceStub: NotificationService {
+public final class NotificationServiceStub: NotificationService {
     public func setup() {}
     public func registerDeviceToken(_ deviceToken: Data) {}
 }
